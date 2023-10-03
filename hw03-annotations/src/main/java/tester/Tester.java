@@ -31,7 +31,7 @@ public class Tester {
         printResult(testResult);
     }
 
-    private static Map<Class<?>, List<Method>> makeMethodMap(Class<?> clazz) {
+    private Map<Class<?>, List<Method>> makeMethodMap(Class<?> clazz) {
         var map = new HashMap<Class<?>, List<Method>>();
         var methods = clazz.getDeclaredMethods();
         fillByAnnotation(map, methods, Before.class);
@@ -40,19 +40,19 @@ public class Tester {
         return map;
     }
 
-    private static void fillByAnnotation(Map<Class<?>, List<Method>> map,
+    private void fillByAnnotation(Map<Class<?>, List<Method>> map,
                                          Method[] methods,
                                          Class<? extends Annotation> annotation) {
         map.put(annotation, getAnnotatedMethods(methods, annotation));
     }
 
-    private static List<Method> getAnnotatedMethods(Method[] methods, Class<? extends Annotation> annotation) {
+    private List<Method> getAnnotatedMethods(Method[] methods, Class<? extends Annotation> annotation) {
         return Arrays.stream(methods)
                 .filter((Method method) -> method.isAnnotationPresent(annotation))
                 .toList();
     }
 
-    private static TestResult runTests(Class<?> processedClass, Map<Class<?>, List<Method>> mapMethods) {
+    private TestResult runTests(Class<?> processedClass, Map<Class<?>, List<Method>> mapMethods) {
         int successCount = 0;
         int errorCount = 0;
 
@@ -76,7 +76,7 @@ public class Tester {
         return new TestResult(successCount, errorCount);
     }
 
-    private static void invokeMethods(Object obj, List<Method> methods) {
+    private void invokeMethods(Object obj, List<Method> methods) {
         for (var method : methods) {
             method.setAccessible(true);
             try {
@@ -87,11 +87,11 @@ public class Tester {
         }
     }
 
-    private static String formatHashCode(int hashCode) {
+    private String formatHashCode(int hashCode) {
         return Integer.toHexString(hashCode);
     }
 
-    private static void printResult(TestResult result) {
+    private void printResult(TestResult result) {
         System.out.println("Test results");
         System.out.println("Total: " + result.getTotalCount());
         System.out.println("Successful: " + result.getSuccessCount());
