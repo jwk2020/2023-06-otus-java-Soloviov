@@ -3,27 +3,26 @@ package ru.atm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.atm.banknote.BanknoteImpl;
+import ru.atm.banknote.Banknote;
 import ru.atm.banknote.Denomination;
 import ru.atm.exception.ImpossibleWithdrawAmountException;
-import ru.atm.service.Atm;
-import ru.atm.service.AtmService;
 import ru.atm.storage.CellStorage;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class AtmImplTest extends CommonTest {
 
     private static final int INITIAL_BALANCE = 9700;
     private static final int SUCCESS_WITHDRAW_AMOUNT = 1100;
-    private static final int WRONG_WITHDRAW_AMOUNT = 1;
+    private static final int WRONG_WITHDRAW_AMOUNT = 101;
 
     private Atm atm;
 
     @BeforeEach
     void setUp() {
-        atm = new AtmImpl(new AtmService(new CellStorage(Denomination.values())));
+        atm = new AtmImpl(new CellStorage(Denomination.values()));
         depositInitialBanknotes();
     }
 
@@ -38,13 +37,13 @@ class AtmImplTest extends CommonTest {
     void depositTest() {
         int initialBalance = atm.getBalance();
         var banknotes = makeBanknoteList(
-                new BanknoteImpl(Denomination.FIFTY),
-                new BanknoteImpl(Denomination.ONE_HUNDRED),
-                new BanknoteImpl(Denomination.TWO_HUNDRED),
-                new BanknoteImpl(Denomination.FIVE_HUNDRED),
-                new BanknoteImpl(Denomination.ONE_THOUSAND),
-                new BanknoteImpl(Denomination.TWO_THOUSAND),
-                new BanknoteImpl(Denomination.FIVE_THOUSAND)
+                new Banknote(Denomination.FIFTY),
+                new Banknote(Denomination.ONE_HUNDRED),
+                new Banknote(Denomination.TWO_HUNDRED),
+                new Banknote(Denomination.FIVE_HUNDRED),
+                new Banknote(Denomination.ONE_THOUSAND),
+                new Banknote(Denomination.TWO_THOUSAND),
+                new Banknote(Denomination.FIVE_THOUSAND)
         );
         atm.deposit(banknotes);
         assertEquals(initialBalance + getBanknotesSum(banknotes), atm.getBalance());
@@ -56,19 +55,21 @@ class AtmImplTest extends CommonTest {
         int initialBalance = atm.getBalance();
         var actualBanknotes = atm.withdraw(SUCCESS_WITHDRAW_AMOUNT);
         var expectedBanknotes = makeBanknoteList(
-                new BanknoteImpl(Denomination.ONE_THOUSAND),
-                new BanknoteImpl(Denomination.ONE_HUNDRED)
+                new Banknote(Denomination.ONE_THOUSAND),
+                new Banknote(Denomination.ONE_HUNDRED)
         );
-        assertIterableEquals(expectedBanknotes, actualBanknotes);
+        assertBanknoteList(expectedBanknotes, actualBanknotes);
         assertEquals(initialBalance - getBanknotesSum(expectedBanknotes), atm.getBalance());
     }
 
     @Test
     @DisplayName("Возврат ошибки, если сумму выдать нельзя")
     void shouldThrowImpossibleWithdrawAmountExceptionTest() {
+        int initialBalance = atm.getBalance();
         assertThrows(ImpossibleWithdrawAmountException.class, () -> {
             atm.withdraw(WRONG_WITHDRAW_AMOUNT);
         });
+        assertEquals(initialBalance, atm.getBalance());
     }
 
     private void depositInitialBanknotes() {

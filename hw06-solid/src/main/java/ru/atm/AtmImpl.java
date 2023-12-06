@@ -1,30 +1,30 @@
 package ru.atm;
 
 import ru.atm.banknote.Banknote;
-import ru.atm.service.Atm;
+import ru.atm.storage.Storage;
 
 import java.util.List;
 
 public class AtmImpl implements Atm {
 
-    private final Atm atmService;
+    private final Storage storage;
 
-    public AtmImpl(Atm atmService) {
-        this.atmService = atmService;
+    public AtmImpl(Storage storage) {
+        this.storage = storage;
     }
 
     @Override
     public void deposit(List<Banknote> banknotes) {
-        atmService.deposit(banknotes);
+        storage.deposit(banknotes);
     }
 
     @Override
-    public List<Banknote> withdraw(int amount)  {
-        return atmService.withdraw(amount);
+    public List<Banknote> withdraw(int amount) {
+        return storage.withdraw(amount);
     }
 
     @Override
     public int getBalance() {
-        return atmService.getBalance();
+        return storage.getBalance();
     }
 }

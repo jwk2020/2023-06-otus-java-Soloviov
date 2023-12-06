@@ -1,7 +1,14 @@
 package ru.atm.banknote;
 
-public interface Banknote {
+public class Banknote {
 
-    Denomination getDenomination();
+    private final Denomination denomination;
 
+    public Banknote(Denomination denomination) {
+        this.denomination = denomination;
+    }
+
+    public Denomination getDenomination() {
+        return denomination;
+    }
 }

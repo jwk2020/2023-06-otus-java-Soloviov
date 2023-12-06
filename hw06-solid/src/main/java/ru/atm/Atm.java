@@ -1,4 +1,4 @@
-package ru.atm.service;
+package ru.atm;
 
 import ru.atm.banknote.Banknote;
 
