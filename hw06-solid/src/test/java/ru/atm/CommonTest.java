@@ -5,8 +5,9 @@ import ru.atm.banknote.Denomination;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class CommonTest {
 
@@ -37,11 +38,12 @@ public abstract class CommonTest {
     }
 
     public static void assertBanknoteList(List<Banknote> expected, List<Banknote> actual) {
-        assertArrayEquals(expected.stream()
-                        .mapToInt(banknote -> banknote.getDenomination().getValue())
-                        .toArray(),
-                actual.stream()
-                        .mapToInt(banknote -> banknote.getDenomination().getValue())
-                        .toArray());
+        assertEquals(convertToDenominationList(expected), convertToDenominationList(actual));
+    }
+
+    public static List<Integer> convertToDenominationList(List<Banknote> banknotes) {
+        return banknotes.stream()
+                .map(banknote -> banknote.getDenomination().getValue())
+                .collect(Collectors.toList());
     }
 }
