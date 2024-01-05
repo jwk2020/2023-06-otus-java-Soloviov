@@ -1,4 +1,4 @@
-@echo off
+REM @echo off
 docker run --rm --name pg-docker ^
 -e POSTGRES_PASSWORD=pwd ^
 -e POSTGRES_USER=usr ^
@@ -6,4 +6,4 @@ docker run --rm --name pg-docker ^
 -p 5430:5432 ^
 postgres:13
 
-pause
+REM pause
