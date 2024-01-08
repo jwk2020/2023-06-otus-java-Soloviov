@@ -13,3 +13,4 @@ Sergey Soloviov (Сергей Соловьев)
 6) **hw06-solid:** Эмулятор банкомата
 7) **hw07-structuralPatterns:** Обработчик сообщений
 8) **hw08-io:** Обработчик json-ов
+9) **hw09-jdbc:** Самодельный ORM
