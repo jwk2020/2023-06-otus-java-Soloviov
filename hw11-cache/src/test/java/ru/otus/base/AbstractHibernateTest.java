@@ -18,12 +18,14 @@ import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
 import ru.otus.crm.service.DBServiceClient;
 import ru.otus.crm.service.DbServiceClientImpl;
+import ru.otus.crm.service.DbServiceClientWithCacheImpl;
 
 public abstract class AbstractHibernateTest {
     protected SessionFactory sessionFactory;
     protected TransactionManagerHibernate transactionManager;
     protected DataTemplateHibernate<Client> clientTemplate;
     protected DBServiceClient dbServiceClient;
+    protected DBServiceClient dbServiceClientWithCache;
 
     private static TestContainersConfig.CustomPostgreSQLContainer CONTAINER;
 
@@ -57,6 +59,7 @@ public abstract class AbstractHibernateTest {
         transactionManager = new TransactionManagerHibernate(sessionFactory);
         clientTemplate = new DataTemplateHibernate<>(Client.class);
         dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
+        dbServiceClientWithCache = new DbServiceClientWithCacheImpl(transactionManager, clientTemplate);
     }
 
     protected EntityStatistics getUsageStatistics() {
