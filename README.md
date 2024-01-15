@@ -15,3 +15,4 @@ Sergey Soloviov (Сергей Соловьев)
 8) **hw08-io:** Обработчик json-ов
 9) **hw09-jdbc:** Самодельный ORM
 10) **hw10-jpql:** Использование Hibernate
+11) **hw11-cache:** Свой cache engine
