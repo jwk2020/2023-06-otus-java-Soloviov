@@ -17,3 +17,4 @@ Sergey Soloviov (Сергей Соловьев)
 10) **hw10-jpql:** Использование Hibernate
 11) **hw11-cache:** Свой cache engine
 12) **hw12-webServer:** Веб сервер
+13) **hw12-di:** Собственный IoC контейнер
