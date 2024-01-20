@@ -8,6 +8,15 @@ dependencies {
 
     implementation("org.postgresql:postgresql")
 
+    implementation("org.eclipse.jetty:jetty-servlet")
+    implementation("org.eclipse.jetty:jetty-server")
+    implementation("org.eclipse.jetty:jetty-webapp")
+    implementation("org.eclipse.jetty:jetty-security")
+    implementation("org.eclipse.jetty:jetty-http")
+    implementation("org.eclipse.jetty:jetty-io")
+    implementation("org.eclipse.jetty:jetty-util")
+    implementation("org.freemarker:freemarker")
+
     testImplementation("com.h2database:h2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.junit.jupiter:junit-jupiter-params")

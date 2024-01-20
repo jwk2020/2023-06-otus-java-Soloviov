@@ -31,8 +31,8 @@ public class Phone {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public Phone(Long id, String number) {
-        this.id = id;
+    public Phone(String number, Client client) {
         this.number = number;
+        this.client = client;
     }
 }
