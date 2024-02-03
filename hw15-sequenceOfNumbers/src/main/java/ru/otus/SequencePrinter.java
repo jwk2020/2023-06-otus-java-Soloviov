@@ -23,7 +23,8 @@ public class SequencePrinter {
                     this.wait();
                 }
                 last = Thread.currentThread().getName();
-                log.info(sequenceGenerator.getNext());
+                var value = sequenceGenerator.getNext();
+                log.info("Value: {}", value);
                 sleep();
                 this.notifyAll();
             } catch (InterruptedException e) {
@@ -47,13 +48,13 @@ public class SequencePrinter {
         private int number = MIN;
         private boolean increase = true;
 
-        public String getNext() {
+        public int getNext() {
             if (number == MAX) {
                 increase = false;
             } else if (number == MIN) {
                 increase = true;
             }
-            return String.valueOf(increase ? number++ : number--);
+            return increase ? number++ : number--;
         }
     }
 }
