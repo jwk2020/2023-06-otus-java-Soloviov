@@ -20,3 +20,4 @@ Sergey Soloviov (Сергей Соловьев)
 13) **hw12-di:** Собственный IoC контейнер
 14) **hw14-springDataJdbc:** Веб-приложение на Spring Boot
 15) **hw15-sequenceOfNumbers:** Последовательность чисел
+16) **hw15-queues:** Queues
